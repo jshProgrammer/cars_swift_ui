@@ -9,18 +9,22 @@ import SwiftUI
 
 struct CarsListView: View {
     @StateObject private var viewModel = CarViewModel()
-                            
+                   
+    //TODO add filter option and add to favourite
+        // implement storage for this
     var body: some View {
         
-        VStack{
-            Text("test")
-            
+        NavigationView{
             List(viewModel.cars, id: \.model) { car in
-                HStack{
-                    Image(systemName: "globe")
-                        .imageScale(.large)
-                        .foregroundStyle(.tint)
-                    Text("\(car.brand) \(car.model)")
+                NavigationLink {
+                    CarDetailView(car: car)
+                } label: {
+                    HStack{
+                        Image(systemName: "car")
+                            .imageScale(.large)
+                            .foregroundStyle(.tint)
+                        Text("\(car.brand) \(car.model)")
+                    }
                 }
             }.onAppear() {
                 viewModel.fetchAllCars()
