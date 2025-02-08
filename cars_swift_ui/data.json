@@ -1,5 +1,4 @@
-{
-  "cars": [
+[
     {
       "brand": "Tesla",
       "model": "Model S Plaid",
@@ -110,6 +109,6 @@
       "carType": "Coupe",
       "image": "https://example.com/chevrolet_corvette.jpg"
     }
-  ]
-}
+]
+
 
