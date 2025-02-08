@@ -12,11 +12,17 @@ struct Car: Decodable {
     var model: String
     var horsepower: Int
     var year: Int
-    var fuelType: String
+    var fuelType: FuelType
     var price: Int
     var image: String
     var transmission: Transmission
     var carType: CarType
+    
+    enum FuelType: String, Decodable {
+        case gasoline = "Gasoline"
+        case electric = "Electric"
+        case hybird = "Hybrid"
+    }
     
     enum Transmission: String, Decodable { 
         case automatic = "Automatic"
