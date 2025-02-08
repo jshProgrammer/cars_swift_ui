@@ -1,0 +1,115 @@
+{
+  "cars": [
+    {
+      "brand": "Tesla",
+      "model": "Model S Plaid",
+      "horsepower": 1020,
+      "price": 109990,
+      "year": 2023,
+      "fuelType": "Electric",
+      "transmission": "Automatic",
+      "carType": "Sedan",
+      "image": "https://example.com/tesla_model_s.jpg"
+    },
+    {
+      "brand": "BMW",
+      "model": "X5 M Competition",
+      "horsepower": 617,
+      "price": 123400,
+      "year": 2023,
+      "fuelType": "Gasoline",
+      "transmission": "Automatic",
+      "carType": "SUV",
+      "image": "https://example.com/bmw_x5_m.jpg"
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "EQS 580 4MATIC",
+      "horsepower": 516,
+      "price": 125950,
+      "year": 2023,
+      "fuelType": "Electric",
+      "transmission": "Automatic",
+      "carType": "Sedan",
+      "image": "https://example.com/mercedes_eqs.jpg"
+    },
+    {
+      "brand": "Porsche",
+      "model": "911 Carrera S",
+      "horsepower": 443,
+      "price": 135200,
+      "year": 2023,
+      "fuelType": "Gasoline",
+      "transmission": "Automatic",
+      "carType": "Coupe",
+      "image": "https://example.com/porsche_911.jpg"
+    },
+    {
+      "brand": "Ford",
+      "model": "Mustang Mach-E GT",
+      "horsepower": 480,
+      "price": 69795,
+      "year": 2023,
+      "fuelType": "Electric",
+      "transmission": "Automatic",
+      "carType": "SUV",
+      "image": "https://example.com/ford_mach_e.jpg"
+    },
+    {
+      "brand": "Toyota",
+      "model": "RAV4 Hybrid",
+      "horsepower": 219,
+      "price": 30725,
+      "year": 2023,
+      "fuelType": "Hybrid",
+      "transmission": "Automatic",
+      "carType": "SUV",
+      "image": "https://example.com/toyota_rav4.jpg"
+    },
+    {
+      "brand": "Audi",
+      "model": "A6 e-tron",
+      "horsepower": 469,
+      "price": 74900,
+      "year": 2024,
+      "fuelType": "Electric",
+      "transmission": "Automatic",
+      "carType": "Sedan",
+      "image": "https://example.com/audi_a6_etron.jpg"
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "ID. Buzz",
+      "horsepower": 204,
+      "price": 65000,
+      "year": 2023,
+      "fuelType": "Electric",
+      "transmission": "Automatic",
+      "carType": "Van",
+      "image": "https://example.com/vw_id_buzz.jpg"
+    },
+    {
+      "brand": "Lamborghini",
+      "model": "Huracán Tecnica",
+      "horsepower": 631,
+      "price": 233600,
+      "year": 2023,
+      "fuelType": "Gasoline",
+      "transmission": "Automatic",
+      "carType": "Coupe",
+      "image": "https://example.com/lamborghini_huracan.jpg"
+    },
+    {
+      "brand": "Chevrolet",
+      "model": "Corvette Stingray",
+      "horsepower": 495,
+      "price": 65595,
+      "year": 2023,
+      "fuelType": "Gasoline",
+      "transmission": "Automatic",
+      "carType": "Coupe",
+      "image": "https://example.com/chevrolet_corvette.jpg"
+    }
+  ]
+}
+
