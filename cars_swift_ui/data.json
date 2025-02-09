@@ -8,7 +8,7 @@
       "fuelType": "Electric",
       "transmission": "Automatic",
       "carType": "Sedan",
-      "image": "https://example.com/tesla_model_s.jpg"
+      "image": "https://ev-database.org/img/auto/Tesla_Model_S_2021/Tesla_Model_S_2021-01@2x.jpg"
     },
     {
       "brand": "BMW",
@@ -19,7 +19,7 @@
       "fuelType": "Gasoline",
       "transmission": "Automatic",
       "carType": "SUV",
-      "image": "https://example.com/bmw_x5_m.jpg"
+      "image": "https://www.bmw-m.com/content/dam/bmw/marketBMW_M/www_bmw-m_com/all-models/m-automobile/x5m/2023/bmw-x5-m-competition-si.png"
     },
     {
       "brand": "Mercedes-Benz",
@@ -30,7 +30,7 @@
       "fuelType": "Electric",
       "transmission": "Automatic",
       "carType": "Sedan",
-      "image": "https://example.com/mercedes_eqs.jpg"
+      "image": "https://www.merbag.de/media/2oqco21f/eqs-bu-hne-3840x2160.jpg?maxwidth=3840&maxheight=3840&quality=80&format=webp&lazyload=true&lazyloadPixelated=true&c.focalPoint=0.496240601503759,0.309663046505152&mode=crop&c.finalmode=crop&c.zoom=false"
     },
     {
       "brand": "Porsche",
@@ -41,7 +41,7 @@
       "fuelType": "Gasoline",
       "transmission": "Automatic",
       "carType": "Coupe",
-      "image": "https://example.com/porsche_911.jpg"
+      "image": "https://images-porsche.imgix.net/-/media/6DFC261DD0B040A0A3FF9081BD9A36B9_70A0E84A559D4DB994E3ECF721972E53_CZ26W03OX0001-911-carrera-s-side?w=2560&h=1440&q=45&crop=faces%2Centropy%2Cedges&auto=format"
     },
     {
       "brand": "Ford",
@@ -52,7 +52,7 @@
       "fuelType": "Electric",
       "transmission": "Automatic",
       "carType": "SUV",
-      "image": "https://example.com/ford_mach_e.jpg"
+      "image": "https://www.ford.de/content/dam/guxeu/rhd/central/cars/2019-cx727/my-2400-update/column-card/ford-mustang_mach_e-eu-Column_Card_Shot_11B_MachE_GT_Ext-1000x667-1000x667-side-detail-on-white-mme-wheel.jpg"
     },
     {
       "brand": "Toyota",
@@ -63,7 +63,7 @@
       "fuelType": "Hybrid",
       "transmission": "Automatic",
       "carType": "SUV",
-      "image": "https://example.com/toyota_rav4.jpg"
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpCpW9L-5M1p_qDQo5cUNQP1qUT10v1Mclww&s"
     },
     {
       "brand": "Audi",
@@ -74,7 +74,7 @@
       "fuelType": "Electric",
       "transmission": "Automatic",
       "carType": "Sedan",
-      "image": "https://example.com/audi_a6_etron.jpg"
+      "image": "https://media.audi.com/is/image/audi/nemo/models/a6-e-tron/a6-avant-e-tron/my-2025/editorial-media/new/A6e_2023_6004_1-L-S-2.jpg"
     },
     {
       "brand": "Volkswagen",
@@ -85,7 +85,7 @@
       "fuelType": "Electric",
       "transmission": "Automatic",
       "carType": "Van",
-      "image": "https://example.com/vw_id_buzz.jpg"
+      "image": "https://i.bstr.es/highmotor/2024/04/vw-id-buzz-california-render.webp"
     },
     {
       "brand": "Lamborghini",
@@ -96,7 +96,7 @@
       "fuelType": "Gasoline",
       "transmission": "Automatic",
       "carType": "Coupe",
-      "image": "https://example.com/lamborghini_huracan.jpg"
+      "image": "https://www.thedrive.com/wp-content/uploads/2023/06/02/tecnicahero-1-scaled.jpg?quality=85"
     },
     {
       "brand": "Chevrolet",
@@ -107,8 +107,6 @@
       "fuelType": "Gasoline",
       "transmission": "Automatic",
       "carType": "Coupe",
-      "image": "https://example.com/chevrolet_corvette.jpg"
+      "image": "https://bucket.dealervenom.com/2024/02/LrFzOxfH-2024-Chevrolet-Corvette-Stingray-Exterior.jpg?auto=compress%2Cformat&ixlib=php-3.3.1"
     }
 ]
-
-
