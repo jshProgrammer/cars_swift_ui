@@ -28,5 +28,5 @@ struct CarDetailView : View {
 }
 
 #Preview {
-    CarDetailView(car: Car(brand: "Audi", model: "A6 e-tron Avant", horsepower: 600, year: 2025, fuelType: Car.FuelType.electric, price: 89999, image: "http://...", transmission: Car.Transmission.automatic, carType: Car.CarType.sedan))
+    CarDetailView(car: PreviewData().loadCars()[0])
 }
