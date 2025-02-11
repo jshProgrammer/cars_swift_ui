@@ -11,16 +11,15 @@ struct CarsListScreen: View {
     @StateObject private var carViewModel = CarViewModel()
     
     @State private var showFilterOptions = false
-    
-    //TODO: add implementation, do not always show search bar
     @State private var showSearchBar = false
-                   
-    var body: some View {
+    
+    @ViewBuilder
+    private var content: some View {
         
         NavigationView{
             VStack {
                 if carViewModel.isLoading {
-                    ProgressView("Loading cars...")  // ⬅️ Ladeindikator während fetchAllCars()
+                    ProgressView("Loading cars...")
                 } else if(carViewModel.cars.isEmpty) {
                     Text("Could not find any cars")
                 } else {
@@ -59,7 +58,13 @@ struct CarsListScreen: View {
                     .presentationDetents([.medium, .large])
                     .presentationDragIndicator(.visible)
             }
-            .searchable(text: $carViewModel.searchText, prompt: "Search for car name") {
+            
+        }
+    }
+              
+    var body: some View {
+        if showSearchBar {
+            content.searchable(text: $carViewModel.searchText, prompt: "Search for car name") {
                 if(carViewModel.cars.count == 0) {
                     Text("Could not find any relating cars")
                 } else {
@@ -72,8 +77,11 @@ struct CarsListScreen: View {
                     }.foregroundColor(.black)
                 }
             }
+        } else {
+            content
         }
     }
+    
 }
 
 #Preview {
