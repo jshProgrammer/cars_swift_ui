@@ -59,4 +59,12 @@ struct Car: Decodable, Hashable {
         }
         image = imageURL
     }
+    
+    func convertPriceToString() -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        formatter.groupingSize = 3
+        return formatter.string(from: NSNumber(value: self.price)) ?? "N/A"
+    }
 }

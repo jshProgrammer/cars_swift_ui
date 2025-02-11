@@ -53,9 +53,11 @@ struct CarsListScreen: View {
                     }
                 }
             }
+            .navigationTitle("All Cars")
+            .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showFilterOptions) {
                 FilterView(viewModel: carViewModel)
-                    .presentationDetents([.medium, .large])
+                    .presentationDetents([.fraction(0.9), .large])
                     .presentationDragIndicator(.visible)
             }
             
@@ -63,22 +65,24 @@ struct CarsListScreen: View {
     }
               
     var body: some View {
-        if showSearchBar {
-            content.searchable(text: $carViewModel.searchText, prompt: "Search for car name") {
-                if(carViewModel.cars.count == 0) {
-                    Text("Could not find any relating cars")
-                } else {
-                    ForEach(carViewModel.cars, id: \.self) { car in
-                        NavigationLink {
-                            CarDetailView(car: car)
-                        } label: {
-                            CarCellView(car: car)
-                        }
-                    }.foregroundColor(.black)
+        NavigationStack {
+            if showSearchBar {
+                content.searchable(text: $carViewModel.searchText, prompt: "Search for car name") {
+                    if(carViewModel.cars.count == 0) {
+                        Text("Could not find any relating cars")
+                    } else {
+                        ForEach(carViewModel.cars, id: \.self) { car in
+                            NavigationLink {
+                                CarDetailView(car: car)
+                            } label: {
+                                CarCellView(car: car)
+                            }
+                        }.foregroundColor(.black)
+                    }
                 }
+            } else {
+                content
             }
-        } else {
-            content
         }
     }
     

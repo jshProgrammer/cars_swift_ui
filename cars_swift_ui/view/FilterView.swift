@@ -22,10 +22,28 @@ struct FilterView: View {
     
     var body: some View {
         
-        //TODO: add range slider for ps and year, picker for brand and model
+        //TODO: add range slider for ps and year
         //TODO: perhaps add arrays for filter options
         
         NavigationStack {
+            
+            VStack {
+                
+                HStack {
+                    Text("Brands")
+                        .font(.headline)
+                    //TODO add picker with logic
+                }
+                
+                HStack {
+                    Text("Models")
+                        .font(.headline)
+                    //TODO add picker with logic
+                }
+                
+            }
+            
+            Divider()
             
             VStack {
                 Text("Car Type")
@@ -37,6 +55,8 @@ struct FilterView: View {
                     }
                 }.pickerStyle(.segmented)
             }.padding()
+            
+            Divider()
             
             HStack{
                 Text("Transmission Type")
@@ -50,6 +70,8 @@ struct FilterView: View {
                 
             }
             
+            Divider()
+            
             VStack {
                 Text("Fuel Type")
                     .font(.headline)
@@ -61,6 +83,7 @@ struct FilterView: View {
                 }.pickerStyle(.segmented)
             }.padding()
             
+            Divider()
         
             
             VStack {
