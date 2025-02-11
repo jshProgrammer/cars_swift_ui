@@ -33,6 +33,7 @@ struct Car: Decodable, Hashable {
         case suv = "SUV"
         case sedan = "Sedan"
         case van = "Van"
+        case pickup = "Pickup"
     }
     
     enum CodingKeys: String, CodingKey {

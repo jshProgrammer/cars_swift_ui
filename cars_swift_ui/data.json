@@ -108,5 +108,93 @@
       "transmission": "Automatic",
       "carType": "Coupe",
       "image": "https://bucket.dealervenom.com/2024/02/LrFzOxfH-2024-Chevrolet-Corvette-Stingray-Exterior.jpg?auto=compress%2Cformat&ixlib=php-3.3.1"
-    }
+    },
+      {
+        "brand": "Porsche",
+        "model": "Taycan Turbo S",
+        "horsepower": 750,
+        "price": 185000,
+        "year": 2024,
+        "fuelType": "Electric",
+        "transmission": "Automatic",
+        "carType": "Sedan",
+        "image": "https://www.porschemobile.com/inventoryphotos/13984/wp0ac2y10rsa52365/ip/2.jpg?timestamp=2024-07-02T02:27:58Z&bg-color=FFFFFF&width=400%20400w"
+      },
+      {
+        "brand": "BMW",
+        "model": "i4 M50",
+        "horsepower": 536,
+        "price": 69900,
+        "year": 2024,
+        "fuelType": "Electric",
+        "transmission": "Automatic",
+        "carType": "Sedan",
+        "image": "https://mediapool.bmwgroup.com/cache/P9/202105/P90423613/P90423613-the-bmw-i4m50-6-2021-600px.jpg"
+      },
+      {
+        "brand": "Audi",
+        "model": "e-tron GT",
+        "horsepower": 637,
+        "price": 106500,
+        "year": 2024,
+        "fuelType": "Electric",
+        "transmission": "Automatic",
+        "carType": "Sedan",
+        "image": "https://mediaservice.audi.com/media/fast/H4sIAAAAAAAA_y3Uve7kNBAA8NwdxyEKECCE6NFfSCcxTjafxQrdUUJx0iGaK_6aOP6KnY-1HWc3FY_CA5x4IRpegIqGBolZieq3MxnPOutZv_8re7757Nm7d69__PfrL5X6o3maZdc1y7InlH_67vX7v7_658OPfv7z__Tzb7LncfP98oRK3jz92EyoBIyrUJ9mLyiVPcuyF79S3W_3guyTLzbvVvQ4fedFWJc5mCQ--7bgIkfWDKc2r9qGsbaq-FDWTVkxLnOJosk5DmX5eZZ98Ds6B7PiXPpljqdyEMHGZb06kO3quwEKVlSQly9d5Sqo6pfjDIibYAjYL7XOCZ-vAlAMxRAA1cQUPTN9uUnCqcQAg6ivllAC75GrgiMmNZWEr_xG3JjtACPmV-oZ-7G7AG5Dt3MiYEvN9lTbFnrUhYhEHIueSLnz0NNeJELv-p7dUbY_QR-RJQ5c-8vIgC-c5zXwFU08Eb3ZSoKP4h4NZifiVe0MBmFOUsEgqWcDgovZEMPeoANhdDVFwjVTB2LVzbUAiaGbryDFVtP7SbnnK6FCcoTek8xButBaYhnkSnhTJCKs1b0khUYRR5C0eSVk5xkoq9mtJxIbOahpie0JlMc21kRMnErCqvIraFRKn0ALj1UO2iCb70z1PBKhsgjaotUV6LC35gZ6G2xgYHwoXQ0WvW0DWIfCMrDTevEdEcqBomVSfQ42bBYLsIeuafP2SPWeg0Ne2QocXy8XBm7o53tyGObxHi0iNOAEOuaIOZ9P4Ay2qgNnsWGR6JvTSvCm1oQTNEvO0_HfiETHCi6ILg1EKDh90TY1GmEagpwZTBK70AL9LBPjMGNqNgXzPMuDwYqTon2uCmVkcNkQaYMeh-p0I7ZuRPB8ET4HP9jGnsAL09Yj4XPVgg-pvAgI2JfXktDIGITet2mCwOPF5RAEJlNDkKGg5UHZbqXI9HOzEeJEf5VgdIn0zBzM7RAsjlfqMuv2RsuXubpyCOvW3CjpdW2oMujSUjItkoYoDljQKEabSllAXFXXU7S6nuUQvawGIqwzvV9M4pJOEG9rLq7EURwtpN7mNOVpsYoOLi3hUoyQYuoOATt6Qa33EEol4eh9sSMccmJxgMOI8uBw2HTCHA43jIGIPmn2vZiToUtiEnM8_0B3TcQ5Gnx8u2xRv6KJ5viwmyHqc94V7EELo3Q852XJHtCtGs8S6UAfOE40qOe3kW62x1ePxSNjVDDTTRcNNT2_WYK5f_rpvvwhRCG8mRXOyolzzr549uqXN_8BunDLMlcFAAA?wid=1920"
+      },
+      {
+        "brand": "Mercedes-Benz",
+        "model": "EQE 53 AMG",
+        "horsepower": 677,
+        "price": 104400,
+        "year": 2024,
+        "fuelType": "Electric",
+        "transmission": "Automatic",
+        "carType": "Sedan",
+        "image": "https://mbpassion.de/wp-cb4ef-content/uploads/2022/07/mbpassion.de-mercedes-amg-eqe-53-4matic-sowie-eqe-43-4matic-ab-sofort-bestellbar-2048-mbpassionde-eqe-amg-53-4matic-plus-43-4matic-plus-eq-amg-21c0617-024-768x512.jpg"
+      },
+      {
+        "brand": "Rivian",
+        "model": "R1T",
+        "horsepower": 835,
+        "price": 73900,
+        "year": 2024,
+        "fuelType": "Electric",
+        "transmission": "Automatic",
+        "carType": "Pickup",
+        "image": "https://gagadget.com/media/post_big/2022-rivian-r1t-front-three-quarter-view.jpg"
+      },
+      {
+        "brand": "Lucid",
+        "model": "Air Dream Edition",
+        "horsepower": 1111,
+        "price": 169000,
+        "year": 2023,
+        "fuelType": "Electric",
+        "transmission": "Automatic",
+        "carType": "Sedan",
+        "image": "https://lucidmotors.com/s3fs-public/2022-02/slideshow-05-regular_0_0_0.webp"
+      },
+      {
+        "brand": "Hyundai",
+        "model": "Ioniq 5 N",
+        "horsepower": 641,
+        "price": 73000,
+        "year": 2024,
+        "fuelType": "Electric",
+        "transmission": "Automatic",
+        "carType": "SUV",
+        "image": "https://cdn.motor1.com/images/mgl/XBGwE2/317:0:5080:3810/hyundai-ioniq-5-n-la-prova.webp"
+      },
+      {
+        "brand": "Nissan",
+        "model": "Ariya e-4ORCE",
+        "horsepower": 389,
+        "price": 60500,
+        "year": 2024,
+        "fuelType": "Electric",
+        "transmission": "Automatic",
+        "carType": "SUV",
+        "image": "https://www-europe.nissan-cdn.net/content/dam/Nissan/nissan_europe/vehicles/TDIEU_MY21_ARIYA_INTERIM_FULL_PES/Modal/Performance/LHD/2022-ariya-e4orce-eulhd-arypl023-2.jpg.ximg.l_12_m.smart.jpg"
+      }
 ]
