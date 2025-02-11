@@ -10,6 +10,7 @@ import Foundation
 class CarViewModel: ObservableObject {
     @Published var allCars: [Car] = []
     @Published var cars: [Car] = []
+    @Published var isLoading: Bool = true
     
     //TODO: add all as option for enums
     @Published var carFilter: CarFilterObservable = CarFilterObservable()
@@ -46,6 +47,7 @@ class CarViewModel: ObservableObject {
     }
     
     func fetchAllCars() {
+        isLoading = true;
         guard let url = Bundle.main.url(forResource: "data", withExtension: "json") else {
             print("File data.json not found")
             return
@@ -61,5 +63,6 @@ class CarViewModel: ObservableObject {
             print("Error when loading and decoding: \(error)")
             return
         }
+        self.isLoading = false
     }
 }

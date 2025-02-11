@@ -18,14 +18,21 @@ struct CarsListScreen: View {
     var body: some View {
         
         NavigationView{
-            //TODO: add text if no car has been found
-            List(carViewModel.cars, id: \.model) { car in
-                NavigationLink {
-                    CarDetailView(car: car)
-                } label: {
-                    CarCellView(car: car)
+            VStack {
+                if carViewModel.isLoading {
+                    ProgressView("Loading cars...")  // ⬅️ Ladeindikator während fetchAllCars()
+                } else if(carViewModel.cars.isEmpty) {
+                    Text("Could not find any cars")
+                } else {
+                    List(carViewModel.cars, id: \.model) { car in
+                        NavigationLink {
+                            CarDetailView(car: car)
+                        } label: {
+                            CarCellView(car: car)
+                        }
+                    }.listStyle(.plain)
                 }
-            }.listStyle(.plain)
+            }
             .onAppear() {
                 carViewModel.fetchAllCars()
             }
@@ -53,13 +60,17 @@ struct CarsListScreen: View {
                     .presentationDragIndicator(.visible)
             }
             .searchable(text: $carViewModel.searchText, prompt: "Search for car name") {
-                ForEach(carViewModel.cars, id: \.self) { car in
-                    NavigationLink {
-                        CarDetailView(car: car)
-                    } label: {
-                        CarCellView(car: car)
-                    }
-                }.foregroundColor(.black)
+                if(carViewModel.cars.count == 0) {
+                    Text("Could not find any relating cars")
+                } else {
+                    ForEach(carViewModel.cars, id: \.self) { car in
+                        NavigationLink {
+                            CarDetailView(car: car)
+                        } label: {
+                            CarCellView(car: car)
+                        }
+                    }.foregroundColor(.black)
+                }
             }
         }
     }
