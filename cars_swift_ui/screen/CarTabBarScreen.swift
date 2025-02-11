@@ -9,7 +9,21 @@ import SwiftUI
 
 struct CarTabBarScreen: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView {
+            
+            NavigationStack {
+                CarsListScreen()
+            }.tabItem {
+                    Image(systemName: "car")
+                    Text("All Cars")
+                }
+            
+            Text("Show favorites (implementation to be continued)")
+                .tabItem {
+                    Image(systemName: "heart")
+                    Text("Favorites")
+                }
+        }
     }
 }
 

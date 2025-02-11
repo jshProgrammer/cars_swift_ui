@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Car: Decodable {
+struct Car: Decodable, Hashable {
     var brand: String
     var model: String
     var horsepower: Int
@@ -18,17 +18,17 @@ struct Car: Decodable {
     var transmission: Transmission
     var carType: CarType
     
-    enum FuelType: String, Decodable {
+    enum FuelType: String, Decodable, CaseIterable {
         case gasoline = "Gasoline"
         case electric = "Electric"
         case hybird = "Hybrid"
     }
     
-    enum Transmission: String, Decodable { 
+    enum Transmission: String, Decodable, CaseIterable {
         case automatic = "Automatic"
         case manual = "Manual"
     }
-    enum CarType: String, Decodable {
+    enum CarType: String, Decodable, CaseIterable {
         case coupe = "Coupe"
         case suv = "SUV"
         case sedan = "Sedan"

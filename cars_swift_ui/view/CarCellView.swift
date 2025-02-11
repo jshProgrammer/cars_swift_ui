@@ -19,6 +19,7 @@ struct CarCellView: View {
                     .clipShape(RoundedRectangle(cornerSize: CGSize(width: 15, height: 15)))
             } placeholder: {
                 ProgressView()
+                    .frame(width: 75, height: 75)
             }
             
             VStack {
