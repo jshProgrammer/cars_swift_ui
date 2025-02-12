@@ -2,7 +2,7 @@
 
 ## Overview
 
-This application provides a graphical user interface displaying a collection of current cars. It has been developed using SwiftUI and serves as a project to reinforce and practice fundamental SwiftUI concepts and features. Please note that the information about the cars could be incorrected as they have been created with the help of ChatGPT for testing purposes.
+This application provides a graphical user interface displaying a collection of current cars. It has been developed using SwiftUI and serves as a project to reinforce and practice fundamental SwiftUI concepts and features. Please note that the information about the cars could be incorrected as they have been created with the help of ChatGPT for testing purposes. Some images are AI-created as well.
 
 ## Features
 
@@ -12,11 +12,13 @@ This application provides a graphical user interface displaying a collection of 
 
 - Responsive layout adapting to different screen sizes
 
-- Use of SwiftUI components such as List, NavigationView, Image, Text, and more
+- Use of SwiftUI components such as List, NavigationView, AsyncImage, GeometryReader and more
 
 - Advanced filtering and search functionality
 
-- Allow users to save their favorite cars
+- Allow users to save their favorite cars including user login
+
+- Enhanced animations for a more dynamic experience (see Login page)
 
 ## Technologies Used
 
@@ -32,7 +34,9 @@ This project was created as a learning exercise to practice and solidify SwiftUI
 
 - Understanding SwiftUI's declarative syntax
 
-- Implementing navigation and state management
+- Deepening understanding of MVVM architecture pattern
+
+- Implementing navigation and state management including annotations like @State, @StateObject, @Publisher, @ObservedObject with Combine 
 
 - Working with data-driven UI elements
 
@@ -53,8 +57,6 @@ git clone https://github.com/jshProgrammer/car-showcase-swiftui.git
 - Integration of a backend service for fetching real-time car data
 
 - Dark mode support
-
-- Enhanced animations for a more dynamic experience
 
 - Show historical pricing data and best deals, with a forecasting option as well
 
