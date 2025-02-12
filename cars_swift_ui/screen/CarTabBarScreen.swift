@@ -23,6 +23,12 @@ struct CarTabBarScreen: View {
                     Image(systemName: "heart")
                     Text("Favorites")
                 }
+            
+            LoginScreen()
+                .tabItem {
+                    Image(systemName: "person")
+                    Text("Login")
+                }
         }
     }
 }
