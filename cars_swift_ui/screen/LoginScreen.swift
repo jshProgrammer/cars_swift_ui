@@ -23,6 +23,7 @@ struct IntroView: View {
     @Binding var intro: PageIntro
     @State var showView: Bool = false
     @State var hideWholeView: Bool = false
+    @State private var keyboardHeight: CGFloat = 0
     
     @State var email: String = ""
     @State var password: String = ""
@@ -106,7 +107,17 @@ struct IntroView: View {
             .padding()
             .offset(y: hideWholeView ? size.height : 0)
             .opacity(hideWholeView ? 0 : 1)
-            
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { output in
+                if let info = output.userInfo, let height = (info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
+                    keyboardHeight = height
+                }
+            }
+            .ignoresSafeArea(.keyboard, edges: .all)
+            .offset(y: -keyboardHeight)
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification), perform: { _ in
+                keyboardHeight = 0
+            })
+            .animation(.spring(response: 0.8, dampingFraction: 0.8, blendDuration: 0), value: keyboardHeight)
     }
     
     func changeIntro(goBack: Bool = false) {
