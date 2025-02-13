@@ -38,10 +38,12 @@ class CarViewModel: ObservableObject {
                     let matchesModel = carFilterObservable.model == "All" || car.model == carFilterObservable.model
                     let matchesPrice = car.price <= Int(carFilterObservable.maxPrice)
                     let matchesFuel = carFilterObservable.fuelType == .all || car.fuelType == carFilterObservable.fuelType
+                    let matchesPS = carFilterObservable.minHorsepower <= car.horsepower && carFilterObservable.maxHorsepower >= car.horsepower
+                    let matchesYear = carFilterObservable.minYear <= car.year && carFilterObservable.maxYear >= car.year
                     let matchesCarType = carFilterObservable.carType == .all || car.carType == carFilterObservable.carType
                     let matchesTransmission = carFilterObservable.transmissionType == .all || car.transmission == carFilterObservable.transmissionType
                     
-                    return matchesBrand && matchesModel && matchesPrice && matchesFuel && matchesCarType && matchesTransmission
+                    return matchesBrand && matchesModel && matchesPrice && matchesFuel && matchesCarType && matchesTransmission && matchesPS && matchesYear
                 }
             }
             .assign(to: &$cars)
@@ -82,9 +84,14 @@ class CarViewModel: ObservableObject {
     }
     
     func resetFilter() {
+        cars = allCars
         carFilter.brand = "All"
         carFilter.model = "All"
         carFilter.maxPrice = 200000
+        carFilter.minHorsepower = 40
+        carFilter.maxHorsepower = 1200
+        carFilter.minYear = 1990
+        carFilter.maxYear = Calendar.current.component(.year, from: Date())
         carFilter.fuelType = .all
         carFilter.carType = .all
         carFilter.transmissionType = .all

@@ -59,8 +59,6 @@ struct CarsListScreen: View {
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showFilterOptions) {
                 FilterView(viewModel: carViewModel)
-                    .presentationDetents([.fraction(0.9), .large])
-                    .presentationDragIndicator(.visible)
             }
             
         }

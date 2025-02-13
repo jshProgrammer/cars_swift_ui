@@ -21,8 +21,6 @@ struct FilterView: View {
     }
     
     var body: some View {
-        
-        //TODO: add range slider for ps and year
         //TODO: perhaps add arrays for filter options
         
         NavigationStack {
@@ -36,10 +34,12 @@ struct FilterView: View {
                             Text("\(brand)").tag(brand)
                         }
                     }.pickerStyle(.navigationLink)
+                        .font(.headline)
                 }
                 
                 HStack {
                     Text("Model")
+                        .font(.headline)
                     
                     Spacer()
                     
@@ -49,7 +49,13 @@ struct FilterView: View {
                             Text("\(model)").tag(model)
                         }
                     }.pickerStyle(.menu)
+                }
+                
+                VStack {
+                    Text("Year")
+                        .font(.headline)
                     
+                    RangeSliderView(start: $carFilter.minYear, end: $carFilter.maxYear, bounds: 1990...Calendar.current.component(.year, from: Date()))
                 }
             }.padding(.horizontal, 15)
                 .foregroundColor(.black)
@@ -67,36 +73,6 @@ struct FilterView: View {
                 }.pickerStyle(.segmented)
             }.padding()
             
-            Divider()
-            
-            HStack{
-                Text("Transmission Type")
-                    .font(.headline)
-                
-                Picker("Transmission Type", selection: $carFilter.transmissionType) {
-                    ForEach(Car.Transmission.allCases, id: \.self) { transmissionType in
-                        Text(transmissionType.rawValue).tag(transmissionType)
-                    }
-                }
-                
-            }
-            
-            Divider()
-            
-            VStack {
-                Text("Fuel Type")
-                    .font(.headline)
-                
-                Picker("Fuel Type", selection: $carFilter.fuelType) {
-                    ForEach(Car.FuelType.allCases, id: \.self) { fuelType in
-                        Text(fuelType.rawValue).tag(fuelType)
-                    }
-                }.pickerStyle(.segmented)
-            }.padding()
-            
-            Divider()
-        
-            
             VStack {
                 Text("Max Price")
                     .font(.headline)
@@ -112,8 +88,43 @@ struct FilterView: View {
                 Text("\(Int(carFilter.maxPrice))€")
                     .foregroundColor(isEditingPrice ? .blue : .black)
                 
-            }
-            .padding()
+            }.padding()
+            
+            Divider()
+            
+            
+            VStack (spacing: 20) {
+                VStack {
+                    Text("Fuel Type")
+                        .font(.headline)
+                    
+                    Picker("Fuel Type", selection: $carFilter.fuelType) {
+                        ForEach(Car.FuelType.allCases, id: \.self) { fuelType in
+                            Text(fuelType.rawValue).tag(fuelType)
+                        }
+                    }.pickerStyle(.segmented)
+                }.padding(.vertical, 10)
+            
+                
+                VStack {
+                    Text("Horsepower")
+                        .font(.headline)
+                    
+                    RangeSliderView(start: $carFilter.minHorsepower, end: $carFilter.maxHorsepower, bounds: 0...1200)
+                }
+                
+                HStack{
+                    Text("Transmission Type")
+                        .font(.headline)
+                    
+                    Picker("Transmission Type", selection: $carFilter.transmissionType) {
+                        ForEach(Car.Transmission.allCases, id: \.self) { transmissionType in
+                            Text(transmissionType.rawValue).tag(transmissionType)
+                        }
+                    }
+                    
+                }
+            }.padding()
             .navigationTitle("Filter")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -126,6 +137,7 @@ struct FilterView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button(action: {
                         carViewModel.resetFilter()
+                        dismiss()
                     }, label: {
                         Image(systemName: "arrow.uturn.left")
                             .frame(width: 20)
