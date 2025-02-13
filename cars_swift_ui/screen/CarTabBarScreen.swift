@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CarTabBarScreen: View {
+    @EnvironmentObject var authenticationViewModel: AuthViewModel
     @Environment(\.modelContext) private var modelContext
     
     var body: some View {
@@ -26,7 +27,7 @@ struct CarTabBarScreen: View {
                     Text("Favorites")
                 }
             
-            LoginScreen()
+            AuthenticationScreen()
                 .tabItem {
                     Image(systemName: "person")
                     Text("Login")
@@ -37,5 +38,6 @@ struct CarTabBarScreen: View {
 
 #Preview {
     CarTabBarScreen()
+        .environmentObject(AuthViewModel())
         .modelContainer(for: Car.self, isUndoEnabled: true)
 }

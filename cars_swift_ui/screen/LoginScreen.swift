@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoginScreen: View {
+    @EnvironmentObject var authenticationViewModel: AuthViewModel
     @State private var activeIntro: PageIntro = pageIntros[0]
     
     var body: some View {
@@ -15,11 +16,14 @@ struct LoginScreen: View {
             let size = $0.size
             
             IntroView(intro: $activeIntro, size: size)
+                
         }
     }
 }
 
 struct IntroView: View {
+    @EnvironmentObject var authenticationViewModel: AuthViewModel
+    
     @Binding var intro: PageIntro
     @State var showView: Bool = false
     @State var hideWholeView: Bool = false
@@ -27,66 +31,88 @@ struct IntroView: View {
     
     @State var email: String = ""
     @State var password: String = ""
+    
+    @State private var showAlertWrongCredentials: Bool = false
         
     
     var size: CGSize
     
     var body: some View {
-        VStack {
-            Spacer(minLength: 40)
-            
-            GeometryReader {
-                let size = $0.size
-                
-                Image(intro.introImage)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: size.width, height: size.width)
-                    .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
-            }
-            .offset(y: showView ?  0 : -size.height / 2)
-            .opacity(showView ? 1 : 0)
-                  
+        NavigationStack {
+            /*NavigationLink(
+                destination: LoggedInScreen(),
+                isActive: $navigateToLoggedInScreen
+            ) {
+                EmptyView()
+            }*/
             
             VStack {
-                Spacer(minLength: (pageIntros.firstIndex(of: intro) == pageIntros.count - 1) ? 40 : 80)
-                Text(intro.title)
-                    .font(.title)
-                    .bold()
+                Spacer(minLength: 40)
                 
-                
-                if intro.lastScreen {
-                    VStack(spacing: 20) {
-                        LoginTextFieldView(text: $email, hint: "Email", icon: Image(systemName: "mail"))
-                        LoginTextFieldView(text: $password, hint: "Password", icon: Image(systemName: "key"), isPassword: true)
-                    }
-                }
-                
-                Spacer(minLength: 20)
-                
-                Group {
+                GeometryReader {
+                    let size = $0.size
                     
-                    LoginCustomIndicatorView(totalPages: pageIntros.count, currentPage: pageIntros.firstIndex(of: intro) ?? 0)
+                    Image(intro.introImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: size.width, height: size.width)
+                        .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
+                }
+                .offset(y: showView ?  0 : -size.height / 2)
+                .opacity(showView ? 1 : 0)
+                
+                
+                VStack {
+                    Spacer(minLength: (pageIntros.firstIndex(of: intro) == pageIntros.count - 1) ? 40 : 80)
+                    Text(intro.title)
+                        .font(.title)
+                        .bold()
+                    
+                    
+                    if intro.lastScreen {
+                        VStack(spacing: 20) {
+                            LoginTextFieldView(text: $email, hint: "Email", icon: Image(systemName: "mail"))
+                            LoginTextFieldView(text: $password, hint: "Password", icon: Image(systemName: "key"), isPassword: true)
+                        }
+                    }
                     
                     Spacer(minLength: 20)
                     
-                    Button(action: {
-                        intro.lastScreen ? print("check login") : changeIntro()
-                    }) {
-                        Text(intro.lastScreen ? "Done" : "Next")
-                            .frame(width: size.width * 0.35)
-                            .foregroundColor(.white)
-                            .padding()
-                            .background {
-                                Capsule()
-                                    .foregroundColor(Color.black.opacity(0.6))
+                    Group {
+                        
+                        LoginCustomIndicatorView(totalPages: pageIntros.count, currentPage: pageIntros.firstIndex(of: intro) ?? 0)
+                        
+                        Spacer(minLength: 20)
+                        
+                        Button(action: {
+                            if intro.lastScreen {
+                                Task {
+                                    let success = await authenticationViewModel.signInWithEmailPassword(email: email, password: password)
+                                    if success {
+                                        print("Login erfolgreich")
+                                    } else {
+                                        showAlertWrongCredentials = true
+                                        print("Login fehlgeschlagen")
+                                    }
+                                }
+                            } else {
+                                changeIntro()
                             }
-                    }
-                }.frame(alignment: .center)
+                        }) {
+                            Text(intro.lastScreen ? "Done" : "Next")
+                                .frame(width: size.width * 0.35)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background {
+                                    Capsule()
+                                        .foregroundColor(Color.black.opacity(0.6))
+                                }
+                        }
+                    }.frame(alignment: .center)
+                }
+                .offset(y: showView ? 0 : size.height / 2)
+                .opacity(showView ? 1 : 0)
             }
-            .offset(y: showView ? 0 : size.height / 2)
-            .opacity(showView ? 1 : 0)
-        }
             .onAppear() {
                 withAnimation(.spring(response: 0.8, dampingFraction: 0.8, blendDuration: 0).delay(0.1)) {
                     showView = true
@@ -118,6 +144,11 @@ struct IntroView: View {
                 keyboardHeight = 0
             })
             .animation(.spring(response: 0.8, dampingFraction: 0.8, blendDuration: 0), value: keyboardHeight)
+            .alert(isPresented: $showAlertWrongCredentials, content: {
+                Alert(title: Text("Login failed"), message: Text("It seems as if your credentials are incorrect or the server is not working properly"), dismissButton: .default(Text("Try again")))
+            })
+            
+        }
     }
     
     func changeIntro(goBack: Bool = false) {
@@ -144,4 +175,5 @@ struct IntroView: View {
 
 #Preview {
     LoginScreen()
+        .environmentObject(AuthViewModel())
 }
