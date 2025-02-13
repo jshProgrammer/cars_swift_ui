@@ -12,14 +12,13 @@ class CarViewModel: ObservableObject {
     @Published var cars: [Car] = []
     @Published var isLoading: Bool = true
     
-    //TODO: add all as option for enums
     @Published var carFilter: CarFilterObservable = CarFilterObservable()
     
     @Published var searchText: String = ""
     
     init() {
         $searchText
-            //.debounce(for: 0.3, scheduler: RunLoop.main) //only if later connected to API
+        //.debounce(for: 0.3, scheduler: RunLoop.main) //only if later connected to API
             .map { searchText in
                 if searchText.isEmpty {
                     return self.allCars
@@ -35,14 +34,14 @@ class CarViewModel: ObservableObject {
         $carFilter
             .map { carFilterObservable in
                 return self.allCars.filter{ car in
-                        let matchesBrand = carFilterObservable.brand == "All" || car.brand == carFilterObservable.brand
-                        let matchesModel = carFilterObservable.model == "All" || car.model == carFilterObservable.model
-                        let matchesPrice = car.price <= Int(carFilterObservable.maxPrice)
-                        let matchesFuel = carFilterObservable.fuelType == .all || car.fuelType == carFilterObservable.fuelType
-                        let matchesCarType = carFilterObservable.carType == .all || car.carType == carFilterObservable.carType
-                        let matchesTransmission = carFilterObservable.transmissionType == .all || car.transmission == carFilterObservable.transmissionType
-                            
-                        return matchesBrand && matchesModel && matchesPrice && matchesFuel && matchesCarType && matchesTransmission
+                    let matchesBrand = carFilterObservable.brand == "All" || car.brand == carFilterObservable.brand
+                    let matchesModel = carFilterObservable.model == "All" || car.model == carFilterObservable.model
+                    let matchesPrice = car.price <= Int(carFilterObservable.maxPrice)
+                    let matchesFuel = carFilterObservable.fuelType == .all || car.fuelType == carFilterObservable.fuelType
+                    let matchesCarType = carFilterObservable.carType == .all || car.carType == carFilterObservable.carType
+                    let matchesTransmission = carFilterObservable.transmissionType == .all || car.transmission == carFilterObservable.transmissionType
+                    
+                    return matchesBrand && matchesModel && matchesPrice && matchesFuel && matchesCarType && matchesTransmission
                 }
             }
             .assign(to: &$cars)
@@ -54,11 +53,10 @@ class CarViewModel: ObservableObject {
             print("File data.json not found")
             return
         }
-
+        
         do {
             let data = try Data(contentsOf: url)
             let decodedCars = try JSONDecoder().decode([DecodableCar].self, from: data)
-            //TODO: implement standard case => all cars, no filter applied
             self.allCars = decodedCars.map({ decodableCar in
                 Car(from: decodableCar)
             })
@@ -81,5 +79,15 @@ class CarViewModel: ObservableObject {
         }.map { car in
             car.model
         }
+    }
+    
+    func resetFilter() {
+        carFilter.brand = "All"
+        carFilter.model = "All"
+        carFilter.maxPrice = 200000
+        carFilter.fuelType = .all
+        carFilter.carType = .all
+        carFilter.transmissionType = .all
+        
     }
 }

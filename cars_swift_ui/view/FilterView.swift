@@ -117,13 +117,22 @@ struct FilterView: View {
             .navigationTitle("Filter")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") {
                         dismiss()
                     }
                 }
                 
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                        carViewModel.resetFilter()
+                    }, label: {
+                        Image(systemName: "arrow.uturn.left")
+                            .frame(width: 20)
+                    })
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
                     Button("Apply") {
                         carViewModel.carFilter = carFilter
                         dismiss()

@@ -39,7 +39,7 @@ struct CarsListScreen: View {
             }
             .padding()
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         showFilterOptions.toggle()
                     }) {
@@ -47,7 +47,7 @@ struct CarsListScreen: View {
                     }
                 }
                 
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .topBarLeading) {
                     Button(action: {
                         showSearchBar.toggle()
                     }) {
