@@ -22,8 +22,12 @@ struct CarFavoritesScreen: View {
                     } label: {
                         CarCellView(car: car)
                     }
-
                 }
+                .onDelete(perform: { indexSet in
+                    for index in indexSet {
+                        modelContext.delete(cars[index])
+                    }
+                })
             }
         }
         .navigationTitle("Favorites")
