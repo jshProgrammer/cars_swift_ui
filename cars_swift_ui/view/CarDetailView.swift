@@ -78,7 +78,6 @@ struct CarDetailView : View {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
                             carDetailViewModel.toggleFavorite()
-                            modelContext.insert(car)
                         } label: {
                             Image(systemName: carDetailViewModel.isFavorite ? "heart.fill" : "heart")
                                 .frame(width: 25)

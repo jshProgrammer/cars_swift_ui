@@ -30,18 +30,14 @@ class CarDetailViewModel: ObservableObject {
                 isFavorite = false
             }
         } else {
-            let favoriteCar = Car(
-                brand: car.brand,
-                model: car.model,
-                horsePower: car.horsepower,
-                year: car.year,
-                fuelType: car.fuelType,
-                imageString: car.imageString,
-                transmission: car.transmission,
-                carType: car.carType
-            )
-            modelContext.insert(favoriteCar)
+            modelContext.insert(car)
             isFavorite = true
+        }
+        
+        do {
+            try modelContext.save()
+        } catch {
+            print("Fehler beim Speichern: \(error.localizedDescription)")
         }
     }
     
