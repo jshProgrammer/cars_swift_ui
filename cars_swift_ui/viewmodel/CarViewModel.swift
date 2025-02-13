@@ -38,10 +38,10 @@ class CarViewModel: ObservableObject {
                         let matchesBrand = carFilterObservable.brand == "All" || car.brand == carFilterObservable.brand
                         let matchesModel = carFilterObservable.model == "All" || car.model == carFilterObservable.model
                         let matchesPrice = car.price <= Int(carFilterObservable.maxPrice)
-                        let matchesFuel = carFilterObservable.fuelType == nil || car.fuelType == carFilterObservable.fuelType
-                        let matchesCarType = carFilterObservable.carType == nil || car.carType == carFilterObservable.carType
-                        let matchesTransmission = carFilterObservable.transmissionType == nil || car.transmission == carFilterObservable.transmissionType
-                        
+                        let matchesFuel = carFilterObservable.fuelType == .all || car.fuelType == carFilterObservable.fuelType
+                        let matchesCarType = carFilterObservable.carType == .all || car.carType == carFilterObservable.carType
+                        let matchesTransmission = carFilterObservable.transmissionType == .all || car.transmission == carFilterObservable.transmissionType
+                            
                         return matchesBrand && matchesModel && matchesPrice && matchesFuel && matchesCarType && matchesTransmission
                 }
             }

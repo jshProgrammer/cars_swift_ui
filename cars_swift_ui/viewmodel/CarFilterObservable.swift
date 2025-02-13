@@ -11,7 +11,7 @@ class CarFilterObservable: ObservableObject {
     @Published var brand: String = "All"
     @Published var model: String = "All"
     @Published var maxPrice: Double = 200000
-    @Published var fuelType: Car.FuelType = .electric
-    @Published var carType: Car.CarType = .coupe
-    @Published var transmissionType: Car.Transmission = .manual
+    @Published var fuelType: Car.FuelType = .all
+    @Published var carType: Car.CarType = .all
+    @Published var transmissionType: Car.Transmission = .all
 }

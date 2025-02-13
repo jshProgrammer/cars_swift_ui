@@ -61,16 +61,19 @@ class Car {
 
 
     enum FuelType: String, Decodable, CaseIterable {
+        case all = "All"
         case gasoline = "Gasoline"
         case electric = "Electric"
         case hybird = "Hybrid"
     }
     
     enum Transmission: String, Codable, CaseIterable {
+        case all = "All"
         case automatic = "Automatic"
         case manual = "Manual"
     }
     enum CarType: String, Codable, CaseIterable {
+        case all = "All"
         case coupe = "Coupe"
         case suv = "SUV"
         case sedan = "Sedan"
