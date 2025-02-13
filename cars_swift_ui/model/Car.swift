@@ -80,6 +80,17 @@ class Car {
     
     init() {}
     
+    init(brand: String, model: String, horsePower: Int, year: Int, fuelType: FuelType, imageString: String, transmission: Transmission, carType: CarType) {
+        self.brand = brand
+        self.model = model
+        self.horsepower = horsePower
+        self.year = year
+        self.fuelType = fuelType
+        self.imageString = imageString
+        self.transmission = transmission
+        self.carType = carType
+    }
+    
     convenience init(from decodableCar: DecodableCar) {
             self.init()
             self.brand = decodableCar.brand

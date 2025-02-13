@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CarTabBarScreen: View {
+    @Environment(\.modelContext) private var modelContext
+    
     var body: some View {
         TabView {
             
@@ -35,4 +37,5 @@ struct CarTabBarScreen: View {
 
 #Preview {
     CarTabBarScreen()
+        .modelContainer(for: Car.self, isUndoEnabled: true)
 }

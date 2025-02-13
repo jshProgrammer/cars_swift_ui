@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CarsListScreen: View {
+    @Environment(\.modelContext) private var modelContext
+    
     @StateObject private var carViewModel = CarViewModel()
     
     @State private var showFilterOptions = false
@@ -25,7 +27,7 @@ struct CarsListScreen: View {
                 } else {
                     List(carViewModel.cars, id: \.model) { car in
                         NavigationLink {
-                            CarDetailView(car: car)
+                            CarDetailView(car: car, modelContext: modelContext)
                         } label: {
                             CarCellView(car: car)
                         }
@@ -73,7 +75,7 @@ struct CarsListScreen: View {
                     } else {
                         ForEach(carViewModel.cars, id: \.self) { car in
                             NavigationLink {
-                                CarDetailView(car: car)
+                                CarDetailView(car: car, modelContext: modelContext)
                             } label: {
                                 CarCellView(car: car)
                             }
@@ -90,4 +92,5 @@ struct CarsListScreen: View {
 
 #Preview {
     CarsListScreen()
+        .modelContainer(for: Car.self, isUndoEnabled: true)
 }

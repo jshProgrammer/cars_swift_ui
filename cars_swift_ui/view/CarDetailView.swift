@@ -6,9 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CarDetailView : View {
+    @Environment(\.modelContext) private var modelContext
+    
+    @StateObject private var carDetailViewModel: CarDetailViewModel
+    
     var car: Car
+    
+    init(car: Car, modelContext: ModelContext) {
+        self.car = car
+        _carDetailViewModel = StateObject(wrappedValue: CarDetailViewModel(car: car, modelContext: modelContext))
+    }
     
     var body: some View {
             
@@ -64,7 +74,17 @@ struct CarDetailView : View {
                 
                 Text("Add user ratings here in the future")
             }.padding()
-            
+                .toolbar() {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            carDetailViewModel.toggleFavorite()
+                            modelContext.insert(car)
+                        } label: {
+                            Image(systemName: carDetailViewModel.isFavorite ? "heart.fill" : "heart")
+                                .frame(width: 25)
+                        }
+                    }
+                }
         }
     }
 }
@@ -96,5 +116,14 @@ struct CarDetailRow: View {
 }
 
 #Preview {
-    CarDetailView(car: PreviewData().loadCars()[0])
+    do {
+        let modelContainer = try ModelContainer(for: Car.self)
+        
+        let car = PreviewData().loadCars()[0]
+        
+        return CarDetailView(car: car, modelContext: modelContainer.mainContext)
+            .modelContainer(modelContainer)
+    } catch {
+        fatalError("Failed to create preview: \(error)")
+    }
 }
