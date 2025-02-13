@@ -17,7 +17,7 @@ struct CarDetailView : View {
             
             VStack(spacing: 20) {
                 
-                AsyncImage(url: car.image) { image in
+                AsyncImage(url: car.imageURL) { image in
                     image
                         .resizable()
                         .scaledToFill()

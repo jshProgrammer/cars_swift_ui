@@ -55,10 +55,12 @@ class CarViewModel: ObservableObject {
 
         do {
             let data = try Data(contentsOf: url)
-            let decodedCars = try JSONDecoder().decode([Car].self, from: data)
+            let decodedCars = try JSONDecoder().decode([DecodableCar].self, from: data)
             //TODO: implement standard case => all cars, no filter applied
-            self.allCars = decodedCars
-            self.cars = decodedCars
+            self.allCars = decodedCars.map({ decodableCar in
+                Car(from: decodableCar)
+            })
+            self.cars = allCars
         } catch {
             print("Error when loading and decoding: \(error)")
             return

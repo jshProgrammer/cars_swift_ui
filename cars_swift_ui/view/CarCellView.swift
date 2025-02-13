@@ -11,7 +11,7 @@ struct CarCellView: View {
     var car: Car;
     var body: some View {
         HStack(spacing: 15) {
-            AsyncImage(url: car.image) { image in
+            AsyncImage(url: car.imageURL) { image in
                 image
                     .resizable()
                     .scaledToFill()

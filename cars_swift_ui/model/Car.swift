@@ -6,29 +6,71 @@
 //
 
 import Foundation
+import SwiftData
 
-struct Car: Decodable, Hashable {
-    var brand: String
-    var model: String
-    var horsepower: Int
-    var year: Int
-    var fuelType: FuelType
-    var price: Int
-    var image: URL
-    var transmission: Transmission
-    var carType: CarType
+@Model
+class Car {
+    @Attribute(.unique) var id: UUID = UUID()
+    var brand: String = ""
+    var model: String = ""
+    var horsepower: Int = 0
+    var year: Int = 0
     
+    // enums internally stored as Strings by SwiftData, but still available as enums
+    var fuelTypeRaw: String = FuelType.gasoline.rawValue
+    var fuelType: FuelType {
+        get {
+            FuelType(rawValue: fuelTypeRaw) ?? .gasoline
+        }
+        set {
+            fuelTypeRaw = newValue.rawValue
+        }
+    }
+    var price: Int = 0
+    var imageString: String = ""
+    
+    var imageURL: URL {
+        get {
+            let imageURL = URL(string: imageString)
+            return imageURL ?? URL(string: "https://www.apple.com")!
+        }
+        set {
+            imageString = imageURL.absoluteString
+        }
+    }
+    
+    var transmissionRaw: String = Transmission.automatic.rawValue
+    var transmission: Transmission {
+        get {
+            Transmission(rawValue: transmissionRaw) ?? .automatic
+        }
+        set {
+            transmissionRaw = newValue.rawValue
+        }
+    }
+
+    var carTypeRaw: String = CarType.sedan.rawValue
+    var carType: CarType {
+        get {
+            CarType(rawValue: carTypeRaw) ?? .sedan
+        }
+        set {
+            carTypeRaw = newValue.rawValue
+        }
+    }
+
+
     enum FuelType: String, Decodable, CaseIterable {
         case gasoline = "Gasoline"
         case electric = "Electric"
         case hybird = "Hybrid"
     }
     
-    enum Transmission: String, Decodable, CaseIterable {
+    enum Transmission: String, Codable, CaseIterable {
         case automatic = "Automatic"
         case manual = "Manual"
     }
-    enum CarType: String, Decodable, CaseIterable {
+    enum CarType: String, Codable, CaseIterable {
         case coupe = "Coupe"
         case suv = "SUV"
         case sedan = "Sedan"
@@ -36,7 +78,22 @@ struct Car: Decodable, Hashable {
         case pickup = "Pickup"
     }
     
-    enum CodingKeys: String, CodingKey {
+    init() {}
+    
+    convenience init(from decodableCar: DecodableCar) {
+            self.init()
+            self.brand = decodableCar.brand
+            self.model = decodableCar.model
+            self.horsepower = decodableCar.horsepower
+            self.year = decodableCar.year
+            self.fuelType = decodableCar.fuelType
+            self.price = decodableCar.price
+            self.imageString = decodableCar.image
+            self.transmission = decodableCar.transmission
+            self.carType = decodableCar.carType
+        }
+    
+    /*enum CodingKeys: String, CodingKey {
         case brand, model, horsepower, year, fuelType, price, image, transmission, carType
     }
     
@@ -59,7 +116,7 @@ struct Car: Decodable, Hashable {
             throw DecodingError.dataCorruptedError(forKey: .image, in: container, debugDescription: "Invalid URL string")
         }
         image = imageURL
-    }
+    }*/
     
     func convertPriceToString() -> String {
         let formatter = NumberFormatter()

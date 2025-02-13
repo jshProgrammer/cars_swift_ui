@@ -16,8 +16,10 @@ struct PreviewData {
         
         do {
             let data = try Data(contentsOf: url);
-            let cars = try JSONDecoder().decode([Car].self, from: data)
-            return cars
+            let cars = try JSONDecoder().decode([DecodableCar].self, from: data)
+            return cars.map { decodableCar in
+                Car(from: decodableCar)
+            }
         } catch {
             return []
         }
