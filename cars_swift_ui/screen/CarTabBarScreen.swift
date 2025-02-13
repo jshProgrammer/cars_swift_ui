@@ -20,7 +20,7 @@ struct CarTabBarScreen: View {
                     Text("All Cars")
                 }
             
-            Text("Show favorites (implementation to be continued)")
+            CarFavoritesScreen()
                 .tabItem {
                     Image(systemName: "heart")
                     Text("Favorites")
