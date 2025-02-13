@@ -35,12 +35,14 @@ class CarViewModel: ObservableObject {
         $carFilter
             .map { carFilterObservable in
                 return self.allCars.filter{ car in
+                        let matchesBrand = carFilterObservable.brand == "All" || car.brand == carFilterObservable.brand
+                        let matchesModel = carFilterObservable.model == "All" || car.model == carFilterObservable.model
                         let matchesPrice = car.price <= Int(carFilterObservable.maxPrice)
                         let matchesFuel = carFilterObservable.fuelType == nil || car.fuelType == carFilterObservable.fuelType
                         let matchesCarType = carFilterObservable.carType == nil || car.carType == carFilterObservable.carType
                         let matchesTransmission = carFilterObservable.transmissionType == nil || car.transmission == carFilterObservable.transmissionType
                         
-                        return matchesPrice && matchesFuel && matchesCarType && matchesTransmission
+                        return matchesBrand && matchesModel && matchesPrice && matchesFuel && matchesCarType && matchesTransmission
                 }
             }
             .assign(to: &$cars)
@@ -66,5 +68,18 @@ class CarViewModel: ObservableObject {
             return
         }
         self.isLoading = false
+    }
+    
+    func fetchAllBrands() -> [String] {
+        return Array(Set(allCars.map { $0.brand })).sorted()
+    }
+    
+    //TODO: implement array of brands as parameter
+    func fetchAllModelsOfBrand(brand: String) -> [String] {
+        return allCars.filter { car in
+            car.brand == brand
+        }.map { car in
+            car.model
+        }
     }
 }

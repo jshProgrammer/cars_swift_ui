@@ -8,6 +8,8 @@
 import Foundation
 
 class CarFilterObservable: ObservableObject {
+    @Published var brand: String = "All"
+    @Published var model: String = "All"
     @Published var maxPrice: Double = 200000
     @Published var fuelType: Car.FuelType = .electric
     @Published var carType: Car.CarType = .coupe

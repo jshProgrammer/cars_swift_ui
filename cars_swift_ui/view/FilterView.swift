@@ -27,21 +27,32 @@ struct FilterView: View {
         
         NavigationStack {
             
-            VStack {
+            VStack(spacing: 10) {
                 
                 HStack {
-                    Text("Brands")
-                        .font(.headline)
-                    //TODO add picker with logic
+                    Picker("Brand", selection: $carFilter.brand) {
+                        Text("All").tag("All")
+                        ForEach(carViewModel.fetchAllBrands(), id: \.self) { brand in
+                            Text("\(brand)").tag(brand)
+                        }
+                    }.pickerStyle(.navigationLink)
                 }
                 
                 HStack {
-                    Text("Models")
-                        .font(.headline)
-                    //TODO add picker with logic
+                    Text("Model")
+                    
+                    Spacer()
+                    
+                    Picker("Model", selection: $carFilter.model) {
+                        Text("All").tag("All")
+                        ForEach(carViewModel.fetchAllModelsOfBrand(brand: carFilter.brand), id: \.self) { model in
+                            Text("\(model)").tag(model)
+                        }
+                    }.pickerStyle(.menu)
+                    
                 }
-                
-            }
+            }.padding(.horizontal, 15)
+                .foregroundColor(.black)
             
             Divider()
             
