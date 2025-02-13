@@ -67,3 +67,6 @@ fastlane/test_output
 DerivedData/
 build/
 .preview-thumbnails/
+
+# Ignore Firebase Config
+GoogleService-Info.plist
