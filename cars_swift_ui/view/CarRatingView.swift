@@ -18,6 +18,15 @@ struct CarRatingView: View {
     
     var body: some View {       
         NavigationStack {
+            content
+        }
+    }
+    
+    @ViewBuilder
+    var content: some View {
+        if(carRatingViewModel.ratings.isEmpty) {
+            Text("No ratings available yet")
+        } else {
             ForEach(carRatingViewModel.ratings, id: \.self) { rating in
                 CarRatingCellView(car: car, rating: rating)
             }

@@ -6,17 +6,104 @@
 //
 
 import Foundation
+import FirebaseCore
+import FirebaseFirestore
+
+
 
 class CarRatingViewModel: ObservableObject {
     var car: Car
     @Published var ratings: [Rating] = []
+    let db: Firestore
     
     init(car: Car) {
         self.car = car
-        loadRatings()
+
+        db = Firestore.firestore()
+        
+        Task {
+            await loadRatings()
+        }
     }
     
-    func loadRatings() {
-        ratings = [Rating(amountOfStars: 5, ratingHeadline: "Great car",  ratingDescription: "The 2025 Audi RS e-tron GT Performance stands as a testament to Audi's commitment to blending electrifying performance with luxury and cutting-edge technology.\nPerformance and Powertrain\nAt the heart of this electric grand tourer lies a formidable 912-horsepower setup, propelling the RS e-tron GT Performance from 0 to 60 mph in a mere 2.4 seconds.\n This remarkable acceleration is complemented by a 105 kWh battery pack, offering an estimated range of 300 miles on a single charge. The vehicle supports rapid 320 kW charging, enabling an 80% charge in just 18 minutes at compatible DC fast-charging stations.\nDriving Dynamics\n The RS e-tron GT Performance is not just about straight-line speed; it excels in handling and ride quality. Equipped with rear-axle steering and air suspension, the vehicle delivers a balanced and engaging driving experience. Reviewers have praised its capability to navigate challenging terrains with confidence, noting its adeptness on both dry and slippery surfaces.\nDesign and Interior\nAesthetically, the RS e-tron GT Performance embodies Audi's design philosophy with its sleek, aerodynamic silhouette and aggressive stance. Inside, the cabin offers a blend of luxury and technology, featuring high-quality materials and a driver-centric layout. The infotainment system is intuitive, providing seamless connectivity and access to various driving modes and settings.\nConclusion\nThe 2025 Audi RS e-tron GT Performance is a compelling choice for enthusiasts seeking an electric vehicle that doesn't compromise on performance, luxury, or technological innovation. Its combination of blistering acceleration, dynamic handling, and sophisticated design positions it as a standout in the high-performance electric vehicle segment."), Rating(amountOfStars: 4, ratingHeadline: "Nice", ratingDescription: "The 2025 Audi RS e-tron GT Performance stands as a testament to Audi's commitment to blending electrifying performance with luxury and cutting-edge technology.\nPerformance and Powertrain\nAt the heart of this electric grand tourer lies a formidable 912-horsepower setup, propelling the RS e-tron GT Performance from 0 to 60 mph in a mere 2.4 seconds.\n This remarkable acceleration is complemented by a 105 kWh battery pack, offering an estimated range of 300 miles on a single charge. The vehicle supports rapid 320 kW charging, enabling an 80% charge in just 18 minutes at compatible DC fast-charging stations.\nDriving Dynamics\n The RS e-tron GT Performance is not just about straight-line speed; it excels in handling and ride quality. Equipped with rear-axle steering and air suspension, the vehicle delivers a balanced and engaging driving experience. Reviewers have praised its capability to navigate challenging terrains with confidence, noting its adeptness on both dry and slippery surfaces.\nDesign and Interior\nAesthetically, the RS e-tron GT Performance embodies Audi's design philosophy with its sleek, aerodynamic silhouette and aggressive stance. Inside, the cabin offers a blend of luxury and technology, featuring high-quality materials and a driver-centric layout. The infotainment system is intuitive, providing seamless connectivity and access to various driving modes and settings.\nConclusion\nThe 2025 Audi RS e-tron GT Performance is a compelling choice for enthusiasts seeking an electric vehicle that doesn't compromise on performance, luxury, or technological innovation. Its combination of blistering acceleration, dynamic handling, and sophisticated design positions it as a standout in the high-performance electric vehicle segment.")]
+    func loadRatings() async {
+        do {
+            let snapshot = try await db.collection("ratings/userRatings/\(transformCarNameForDB())").getDocuments()
+            if snapshot.isEmpty {
+                print("No documents found.")
+            } else {
+                for document in snapshot.documents {
+                    print("Document found: \(document.documentID) => \(document.data())")
+                    DispatchQueue.main.async {
+                        self.ratings.append(self.transformDocumentToRating("\(document.data())"))
+                    }
+                }
+            }
+        
+        } catch {
+            DispatchQueue.main.async {
+                print("Error getting documents: \(error)")
+            }
+        }
     }
+    
+    func transformCarNameForDB() -> String {
+        // for instance: audi:a6e-tron
+        return "\(car.brand.lowercased()):\(car.model.replacingOccurrences(of: " ", with: "").lowercased())"
+    }
+    
+    // doc for instance: ["ratingDescription": Great, "amountOfStars": 4, "ratingHeadline": Incredible]
+    func transformDocumentToRating(_ input: String) -> Rating {
+        let trimmed = input
+            .replacingOccurrences(of: "^\\[|\\]$", with: "", options: .regularExpression)
+        
+        let pattern = #""(\w+)":\s((?:\\"|.)*?)(?=,\s"|$)"#
+        guard let regex = try? NSRegularExpression(pattern: pattern, options: .dotMatchesLineSeparators) else {
+            return errorRating()
+        }
+        
+        var result = [String: String]()
+        let nsString = trimmed as NSString
+        let matches = regex.matches(
+            in: trimmed,
+            range: NSRange(location: 0, length: trimmed.utf16.count)
+        )
+        
+        for match in matches {
+            guard match.numberOfRanges >= 2,
+                  let key = nsString.substring(with: match.range(at: 1)) as String?,
+                  let value = nsString.substring(with: match.range(at: 2)) as String? else {
+                continue
+            }
+            
+            result[key] = value
+                .replacingOccurrences(of: "\\n", with: "\n")
+                .replacingOccurrences(of: "\\\"", with: "\"")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        
+        guard let stars = result["amountOfStars"].flatMap(Int.init) else {
+            return errorRating()
+        }
+        
+        return Rating(
+            amountOfStars: stars,
+            ratingHeadline: result["ratingHeadline"] ?? "",
+            ratingDescription: result["ratingDescription"] ?? ""
+        )
+    }
+
+
+
+    private func errorRating() -> Rating {
+        return Rating(
+            amountOfStars: 0,
+            ratingHeadline: "Parsing error",
+            ratingDescription: "Invalid rating format"
+        )
+    }
+
+
+   
+
 }
