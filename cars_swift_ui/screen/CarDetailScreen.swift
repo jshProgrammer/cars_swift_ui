@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct CarDetailView : View {
+struct CarDetailScreen : View {
     @Environment(\.modelContext) private var modelContext
     
     @StateObject private var carDetailViewModel: CarDetailViewModel
@@ -69,10 +69,7 @@ struct CarDetailView : View {
                 
                 Divider()
                 
-                Text("User ratings")
-                    .font(.title2)
-                
-                CarRatingView(car: car)
+                CarRatingScreen(car: car)
             }.padding()
                 .toolbar() {
                     ToolbarItem(placement: .topBarTrailing) {
@@ -120,7 +117,7 @@ struct CarDetailRow: View {
         
         let car = PreviewData().loadCars()[0]
         
-        return CarDetailView(car: car, modelContext: modelContainer.mainContext)
+        return CarDetailScreen(car: car, modelContext: modelContainer.mainContext)
             .modelContainer(modelContainer)
     } catch {
         fatalError("Failed to create preview: \(error)")

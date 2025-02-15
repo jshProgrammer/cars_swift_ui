@@ -27,7 +27,7 @@ struct CarsListScreen: View {
                 } else {
                     List(carViewModel.cars, id: \.model) { car in
                         NavigationLink {
-                            CarDetailView(car: car, modelContext: modelContext)
+                            CarDetailScreen(car: car, modelContext: modelContext)
                         } label: {
                             CarCellView(car: car)
                         }
@@ -73,7 +73,7 @@ struct CarsListScreen: View {
                     } else {
                         ForEach(carViewModel.cars, id: \.self) { car in
                             NavigationLink {
-                                CarDetailView(car: car, modelContext: modelContext)
+                                CarDetailScreen(car: car, modelContext: modelContext)
                             } label: {
                                 CarCellView(car: car)
                             }

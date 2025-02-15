@@ -10,7 +10,6 @@ import FirebaseCore
 import FirebaseFirestore
 
 
-
 class CarRatingViewModel: ObservableObject {
     var car: Car
     @Published var ratings: [Rating] = []
@@ -44,6 +43,19 @@ class CarRatingViewModel: ObservableObject {
             DispatchQueue.main.async {
                 print("Error getting documents: \(error)")
             }
+        }
+    }
+    
+    func addRating(rating: Rating) async {
+        do {
+            let ref = try await db.collection("ratings/userRatings/\(transformCarNameForDB())").addDocument(data: [
+                "amountOfStars": rating.amountOfStars,
+                "ratingDescription": rating.ratingDescription,
+                "ratingHeadline": rating.ratingHeadline
+          ])
+          print("Document added with ID: \(ref.documentID)")
+        } catch {
+          print("Error adding document: \(error)")
         }
     }
     

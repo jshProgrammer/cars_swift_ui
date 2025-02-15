@@ -18,7 +18,7 @@ struct CarFavoritesScreen: View {
             List {
                 ForEach(cars) { car in
                     NavigationLink {
-                        CarDetailView(car: car, modelContext: modelContext)
+                        CarDetailScreen(car: car, modelContext: modelContext)
                     } label: {
                         CarCellView(car: car)
                     }
