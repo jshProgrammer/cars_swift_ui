@@ -16,7 +16,9 @@ This application provides a graphical user interface displaying a collection of 
 
 - Advanced filtering and search functionality
 
-- Allow users to save their favorite cars including user login
+- Allow users to save their favorite cars on the local device
+
+- Integrate authentication with Firebase
 
 - Enhanced animations for a more dynamic experience (see Login page)
 
@@ -26,7 +28,11 @@ This application provides a graphical user interface displaying a collection of 
 
 - Swift - Programming language for iOS development
 
+- SwiftData - Framework for persistent data storage in SwiftUI applications
+
 - Xcode - IDE for Swift development
+
+- Firebase Authentication - Backend solution by Google for user authentication, supporting sign-in methods like Email/Password, Google, Facebook, and Apple Sign-In
 
 ## Purpose
 
@@ -36,7 +42,11 @@ This project was created as a learning exercise to practice and solidify SwiftUI
 
 - Deepening understanding of MVVM architecture pattern
 
-- Implementing navigation and state management including annotations like @State, @StateObject, @Publisher, @ObservedObject with Combine 
+- Implementing navigation and state management including annotations like @State, @StateObject, @Publisher, @ObservedObject with Combine
+
+- Integrating authentication frameworks
+
+- Utilizing newly published SwiftData framework instead of CoreData
 
 - Working with data-driven UI elements
 
