@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CarCellView: View {
     var car: Car;
+    
     var body: some View {
         HStack(spacing: 15) {
             AsyncImage(url: car.imageURL) { image in
@@ -34,6 +36,7 @@ struct CarCellView: View {
         }
     }
 }
+
 
 #Preview {
     CarCellView(car: PreviewData().loadCars()[0])

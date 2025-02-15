@@ -72,7 +72,7 @@ struct CarDetailView : View {
                 Text("User ratings")
                     .font(.title2)
                 
-                Text("Add user ratings here in the future")
+                CarRatingView(car: car)
             }.padding()
                 .toolbar() {
                     ToolbarItem(placement: .topBarTrailing) {
