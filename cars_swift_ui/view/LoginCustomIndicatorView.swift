@@ -13,7 +13,8 @@ struct LoginCustomIndicatorView: View {
     
     var body: some View {
         HStack(spacing: 5) {
-            ForEach(0..<totalPages, id: \.self) { counter in
+            // one less, since customer is on "sign up" or "log in" page and not both
+            ForEach(0..<totalPages-1, id: \.self) { counter in
                 Circle()
                     .fill(counter == currentPage ? .black : .gray.opacity(0.3))
                     .frame(width: 4, height: 4)

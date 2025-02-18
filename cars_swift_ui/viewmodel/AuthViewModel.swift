@@ -63,17 +63,17 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func signUpWithEmailPassword(email: String, password: String) async -> Bool {
+    func signUpWithEmailPassword(email: String, password: String) async -> (Bool, String) {
         do {
             let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
             user = authResult.user
             print("User \(authResult.user.uid) signed in")
             authenticationState = .authenticated
-            return true
+            return (true, "")
         } catch {
             print("\(error.localizedDescription)")
             authenticationState = .unauthenticated
-            return false
+            return (false, error.localizedDescription)
         }
     }
     

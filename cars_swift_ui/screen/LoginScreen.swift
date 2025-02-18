@@ -33,19 +33,13 @@ struct IntroView: View {
     @State var password: String = ""
     
     @State private var showAlertWrongCredentials: Bool = false
-        
+    @State private var showAlertErrorSignUp: Bool = false
+    @State private var errorMessageSignUp: String = ""
     
     var size: CGSize
     
     var body: some View {
         NavigationStack {
-            /*NavigationLink(
-                destination: LoggedInScreen(),
-                isActive: $navigateToLoggedInScreen
-            ) {
-                EmptyView()
-            }*/
-            
             VStack {
                 Spacer(minLength: 40)
                 
@@ -69,7 +63,7 @@ struct IntroView: View {
                         .bold()
                     
                     
-                    if intro.lastScreen {
+                    if intro.lastScreenLogIn || intro.lastScreenSignUp {
                         VStack(spacing: 20) {
                             LoginTextFieldView(text: $email, hint: "Email", icon: Image(systemName: "mail"))
                             LoginTextFieldView(text: $password, hint: "Password", icon: Image(systemName: "key"), isPassword: true)
@@ -80,33 +74,49 @@ struct IntroView: View {
                     
                     Group {
                         
-                        LoginCustomIndicatorView(totalPages: pageIntros.count, currentPage: pageIntros.firstIndex(of: intro) ?? 0)
+                        LoginCustomIndicatorView(totalPages: pageIntros.count, currentPage: intro.lastScreenLogIn ? pageIntros.count - 2 : pageIntros.firstIndex(of: intro) ?? 0)
                         
                         Spacer(minLength: 20)
                         
-                        Button(action: {
-                            if intro.lastScreen {
-                                Task {
-                                    let success = await authenticationViewModel.signInWithEmailPassword(email: email, password: password)
-                                    if success {
-                                        print("Login erfolgreich")
-                                    } else {
-                                        showAlertWrongCredentials = true
-                                        print("Login fehlgeschlagen")
-                                    }
+                        if intro.decisionSignUpOrLogIn {
+                            HStack {
+                                Button {
+                                    changeIntro()
+                                } label: {
+                                    customButton(text: "Sign up")
                                 }
-                            } else {
-                                changeIntro()
+                                
+                                Button {
+                                    changeIntro(showLogIn: true)
+                                } label: {
+                                    customButton(text: "Log in")
+                                }
                             }
-                        }) {
-                            Text(intro.lastScreen ? "Done" : "Next")
-                                .frame(width: size.width * 0.35)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background {
-                                    Capsule()
-                                        .foregroundColor(Color.black.opacity(0.6))
+                        } else {
+                            Button(action: {
+                                if intro.lastScreenLogIn {
+                                    Task {
+                                        let success = await authenticationViewModel.signInWithEmailPassword(email: email, password: password)
+                                       if !success {
+                                            showAlertWrongCredentials = true
+                                            print("Login fehlgeschlagen")
+                                        }
+                                    }
+                                } else if intro.lastScreenSignUp {
+                                    Task {
+                                        let (success, errorMsg) = await authenticationViewModel.signUpWithEmailPassword(email: email, password: password)
+                                        if !success {
+                                            errorMessageSignUp = errorMsg
+                                            showAlertErrorSignUp = true
+                                            print("Login fehlgeschlagen")
+                                        }
+                                    }
+                                } else {
+                                    changeIntro()
                                 }
+                            }) {
+                                customButton(text: intro.lastScreenLogIn || intro.lastScreenSignUp ? "Done" : "Next")
+                            }
                         }
                     }.frame(alignment: .center)
                 }
@@ -147,21 +157,48 @@ struct IntroView: View {
             .alert(isPresented: $showAlertWrongCredentials, content: {
                 Alert(title: Text("Login failed"), message: Text("It seems as if your credentials are incorrect or the server is not working properly"), dismissButton: .default(Text("Try again")))
             })
-            
+            .alert(isPresented: $showAlertErrorSignUp, content: {
+                Alert(title: Text("Sign up failed"), message: Text("Sign up was not possible due to the following error\n\(errorMessageSignUp)"), dismissButton: .default(Text("Try again")))
+            })
         }
     }
     
-    func changeIntro(goBack: Bool = false) {
+    func customButton(text: String) -> some View {
+        Text(text)
+            .frame(width: size.width * 0.35)
+            .foregroundColor(.white)
+            .padding()
+            .background {
+                Capsule()
+                    .foregroundColor(Color.black.opacity(0.6))
+            }
+    }
+    
+    //TODO: shouldn´t this be in a ViewModel?!
+    func changeIntro(goBack: Bool = false, showLogIn: Bool = false) {
         withAnimation(.spring(response: 0.8, dampingFraction: 0.8, blendDuration: 0).delay(0.1)) {
             hideWholeView = true
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            
+         
+            
             if let index = pageIntros.firstIndex(of: intro){
-                if(goBack) { intro = pageIntros[index - 1] }
-                else if(index != pageIntros.count - 1) { intro = pageIntros[index + 1] }
+                if(goBack) {
+                    if(index == pageIntros.count - 1) {intro = pageIntros[index - 2]}
+                    else {intro = pageIntros[index - 1]}
+                }
+                else if(index != pageIntros.count - 1) {
+                    if(showLogIn) {
+                        intro = pageIntros[pageIntros.count - 1]
+                    } else {
+                        intro = pageIntros[index + 1]
+                    }
+                }
                 else { intro = pageIntros[pageIntros.count - 1] }
             }
+            
             
             hideWholeView = false
             showView = false
