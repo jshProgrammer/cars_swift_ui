@@ -9,8 +9,13 @@ import SwiftUI
 
 struct CarRatingScreen: View {
     var car: Car
+    @Environment(\.dismiss) var dismiss
     @StateObject var carRatingViewModel: CarRatingViewModel
+    @StateObject var authViewModel: AuthViewModel = AuthViewModel()
+    
     @State var addRating: Bool = false
+    @State private var showNotAuthenticatedAlert: Bool = false
+    @State private var navigationToLogin: Bool = false
     
     init(car: Car) {
         self.car = car
@@ -26,7 +31,11 @@ struct CarRatingScreen: View {
                         .font(.title)
                     
                     Button(action: {
-                        addRating = true
+                        if(authViewModel.authenticationState == .unauthenticated) {
+                            showNotAuthenticatedAlert = true
+                        } else {
+                            addRating = true
+                        }
                     }, label: {
                         Image(systemName: "plus")
                             .frame(width: 25)
@@ -40,6 +49,15 @@ struct CarRatingScreen: View {
                 AddCarRatingView(car: car)
                     .presentationDetents([.medium, .large])
             })
+            .alert(isPresented: $showNotAuthenticatedAlert, content: {
+                Alert(title: Text("Unauthenticated"), message: Text("You have to be authenticated to add a rating"), primaryButton: .default(Text("Sign up/ Log in"), action: {
+                    navigationToLogin = true
+                }), secondaryButton: .cancel())
+
+            })
+            .navigationDestination(isPresented: $navigationToLogin) {
+                AuthenticationScreen()
+            }
         }
     }
     
