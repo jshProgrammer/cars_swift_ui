@@ -42,5 +42,5 @@ struct CarRatingDetailView: View {
 }
 
 #Preview {
-        CarRatingDetailView(car: PreviewData().loadCars()[0], rating: Rating(amountOfStars: 5, ratingHeadline: "Incredible", ratingDescription: "Wow it is such a great car"))
+    CarRatingDetailView(car: PreviewData().loadCars()[0], rating: PreviewData().loadSampleRating())
 }

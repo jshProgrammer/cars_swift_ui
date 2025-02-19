@@ -8,6 +8,10 @@
 import Foundation
 
 struct PreviewData {
+    func loadSampleRating() -> Rating {
+        return Rating(amountOfStars: 4, ratingHeadline: "Incredible", ratingDescription: "Wow it is such a great car, I absolutely adore it")
+    }
+    
     func loadCars() -> [Car] {
         
         guard let url = Bundle.main.url(forResource: "data", withExtension: "json") else {

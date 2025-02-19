@@ -77,7 +77,6 @@ struct AddCarRatingView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add") {
                         //TODO: ensure that CarDetailView is updated immediately and ensure that alert is presented (un-/successful)
-                        //TODO: should only work if logged in
                         Task {
                             await carRatingViewModel.addRating(rating: Rating(amountOfStars: amountOfStars, ratingHeadline: headline, ratingDescription: description))
                         }

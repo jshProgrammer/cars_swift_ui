@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GoogleSignIn
 
 struct LoginScreen: View {
     @EnvironmentObject var authenticationViewModel: AuthViewModel
@@ -49,8 +50,9 @@ struct IntroView: View {
                     Image(intro.introImage)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: size.width, height: size.width)
+                        .frame(width: (intro.lastScreenSignUp || intro.lastScreenLogIn ? size.width * 0.5 : size.width), height: (intro.lastScreenSignUp || intro.lastScreenLogIn ? size.width * 0.5 : size.width))
                         .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
+                        .frame(maxWidth: .infinity)
                 }
                 .offset(y: showView ?  0 : -size.height / 2)
                 .opacity(showView ? 1 : 0)
@@ -62,11 +64,44 @@ struct IntroView: View {
                         .font(.title)
                         .bold()
                     
-                    
+                    //TODO: add name for signing up with email and password
+                    //TODO: experience is cut on device
+                                        
                     if intro.lastScreenLogIn || intro.lastScreenSignUp {
                         VStack(spacing: 20) {
                             LoginTextFieldView(text: $email, hint: "Email", icon: Image(systemName: "mail"))
                             LoginTextFieldView(text: $password, hint: "Password", icon: Image(systemName: "key"), isPassword: true)
+                            
+                            Text("\nAlternatively with your desired service")
+                            
+                            //TODO: add sign in with apple and google
+                            
+                            HStack(spacing: 30) {
+                                LogInButtonView(imageName: "google_logo") {
+                                    //TODO: perhaps extract in method/viewcontroller
+                                    Task {
+                                        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                                              let rootViewController = windowScene.windows.first?.rootViewController else {
+                                            print("Fehler: Root View Controller nicht gefunden.")
+                                            return
+                                        }
+
+                                        let success = await authenticationViewModel.signInWithGoogle(presentingViewController: rootViewController)
+                                                    
+                                        if !success {
+                                            showAlertErrorSignUp = true
+                                            //TODO: to add // errorMessageSignUp =
+                                        }
+                                    }
+                                        
+                                }
+                                LogInButtonView(systemImageName: "apple.logo") {
+                                    print("test")
+                                }
+                                LogInButtonView(imageName:"github_logo") {
+                                    print("test")
+                                }
+                            }
                         }
                     }
                     

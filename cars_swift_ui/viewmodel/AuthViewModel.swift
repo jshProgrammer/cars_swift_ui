@@ -7,6 +7,9 @@
 
 import Foundation
 import FirebaseAuth
+import GoogleSignIn
+import FirebaseCore
+import AuthenticationServices
 
 enum AuthenticationState {
     case unauthenticated
@@ -47,6 +50,38 @@ class AuthViewModel: ObservableObject {
             })
         }
     }
+    
+    func signInWithGoogle(presentingViewController: UIViewController) async -> Bool {
+        guard let clientID = FirebaseApp.app()?.options.clientID else {
+            print("Fehlende Client-ID für Google Sign-In.")
+            return false
+        }
+
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+
+        do {
+            let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController)
+
+            let user = result.user
+            guard let idToken = user.idToken?.tokenString else {
+                print("Fehler: Kein gültiger ID-Token erhalten.")
+                return false
+            }
+
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: user.accessToken.tokenString)
+
+            let authResult = try await Auth.auth().signIn(with: credential)
+            self.user = authResult.user
+            self.authenticationState = .authenticated
+            print("Erfolgreich bei Firebase angemeldet: \(authResult.user.displayName ?? "Kein Name")")
+            return true
+        } catch {
+            print("Fehler bei der Google-Anmeldung: \(error.localizedDescription)")
+            return false
+        }
+    }
+
     
     func signInWithEmailPassword(email: String, password: String) async -> Bool {
         authenticationState = .authenticating
