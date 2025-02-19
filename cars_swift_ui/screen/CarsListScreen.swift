@@ -77,7 +77,7 @@ struct CarsListScreen: View {
                             } label: {
                                 CarCellView(car: car)
                             }
-                        }.foregroundColor(.black)
+                        }.foregroundColor(Color("contrastColor"))
                     }
                 }
             } else {

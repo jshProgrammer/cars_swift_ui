@@ -19,10 +19,10 @@ struct CarRatingCellView: View {
                 ForEach(1...5, id: \.self) { num in
                     Image(systemName: num <= rating.amountOfStars ? "star.fill" : "star")
                 }
-            }.foregroundColor(.black)
+            }.foregroundColor(Color("contrastColor"))
            
             Text("\(rating.ratingHeadline)")
-                .foregroundColor(.black)
+                .foregroundColor(Color("contrastColor"))
                 .padding(.leading, 10)
             
             Spacer()

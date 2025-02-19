@@ -39,7 +39,7 @@ struct LoggedInScreen: View {
                         .padding()
                         .foregroundColor(.white)
                         .background(Capsule()
-                            .fill(.black.opacity(0.6))
+                            .fill(Color("contrastColor").opacity(0.6))
                         )
                         
                 })

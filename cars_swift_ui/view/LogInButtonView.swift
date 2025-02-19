@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LogInButtonView: View {
+    @Environment(\.colorScheme) private var colorSchema
     var imageName: String?
     var systemImageName: String?
     var action: () -> Void
@@ -28,7 +29,7 @@ struct LogInButtonView: View {
                 } else if let systemImageName = systemImageName {
                     Image(systemName: systemImageName)
                         .font(.title2)
-                        .foregroundColor(.black)
+                        .foregroundColor(colorSchema == .dark ? .black : .white)
                 }
             }
             .frame(width: 40, height: 40)
@@ -39,7 +40,7 @@ struct LogInButtonView: View {
                 Circle()
                     .stroke(Color.gray, lineWidth: 1)
             )
-            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 3)
+            .shadow(color: Color("contrastColor").opacity(0.2), radius: 5, x: 0, y: 3)
         }
     }
 }

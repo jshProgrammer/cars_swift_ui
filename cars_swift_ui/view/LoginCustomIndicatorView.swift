@@ -16,7 +16,7 @@ struct LoginCustomIndicatorView: View {
             // one less, since customer is on "sign up" or "log in" page and not both
             ForEach(0..<totalPages-1, id: \.self) { counter in
                 Circle()
-                    .fill(counter == currentPage ? .black : .gray.opacity(0.3))
+                    .fill(counter == currentPage ? Color("contrastColor") : Color("contrastColor").opacity(0.3))
                     .frame(width: 4, height: 4)
             }
         }

@@ -211,7 +211,7 @@ struct IntroView: View {
             .padding()
             .background {
                 Capsule()
-                    .foregroundColor(Color.black.opacity(0.6))
+                    .foregroundColor(Color("contrastColor").opacity(0.6))
             }
     }
     

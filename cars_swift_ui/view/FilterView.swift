@@ -58,7 +58,7 @@ struct FilterView: View {
                     RangeSliderView(start: $carFilter.minYear, end: $carFilter.maxYear, bounds: 1990...Calendar.current.component(.year, from: Date()))
                 }
             }.padding(.horizontal, 15)
-                .foregroundColor(.black)
+                .foregroundColor(Color("contrastColor"))
             
             Divider()
             
@@ -86,7 +86,7 @@ struct FilterView: View {
                     isEditingPrice = editing
                 }
                 Text("\(Int(carFilter.maxPrice))€")
-                    .foregroundColor(isEditingPrice ? .blue : .black)
+                    .foregroundColor(isEditingPrice ? .blue : Color("contrastColor"))
                 
             }.padding()
             

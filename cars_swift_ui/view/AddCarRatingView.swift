@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddCarRatingView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) private var colorScheme
     @StateObject var carRatingViewModel: CarRatingViewModel
     
     var car: Car
@@ -32,7 +33,7 @@ struct AddCarRatingView: View {
                             Image(systemName: num <= amountOfStars ? "star.fill" : "star")
                         }
                     }
-                }.foregroundColor(.black)
+                }.foregroundColor(Color("contrastColor"))
                     .padding(.vertical, 15)
 
                 
@@ -43,7 +44,6 @@ struct AddCarRatingView: View {
             
                 
                 ZStack(alignment: .topLeading) {
-                    //TODO: is not shown
                     if description == "" {
                         Text("Description")
                             .foregroundColor(.gray)
@@ -55,10 +55,10 @@ struct AddCarRatingView: View {
                         .padding(.horizontal, 4)
                         .frame(height: 100)
                         .padding(8)
-                        .background(Color.white)
+                        .background(colorScheme == .dark ? .black : .white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.gray, lineWidth: 1)
+                                .stroke(colorScheme == .dark ? .white : .gray, lineWidth: 1)
                         )
                         .cornerRadius(5)
                 }

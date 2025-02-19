@@ -24,7 +24,7 @@ struct RangeSliderView: View {
     }()
     
     let diamete: CGFloat = 10
-    let color: Color = .black
+    let color: Color = Color("contrastColor")
     let bounds: ClosedRange<Int>
     
     init(start: Binding<Int>, end: Binding<Int>, bounds: ClosedRange<Int>) {

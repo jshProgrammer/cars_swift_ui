@@ -10,6 +10,7 @@ import SwiftData
 
 struct CarDetailScreen : View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.colorScheme) private var colorSchema
     
     @StateObject private var carDetailViewModel: CarDetailViewModel
     
@@ -43,9 +44,9 @@ struct CarDetailScreen : View {
                 } placeholder: {
                     ZStack {
                         RoundedRectangle(cornerSize: CGSize(width: 20, height: 20))
+                            .fill(colorSchema == .dark ? .black : .white)
                         ProgressView()
                     } .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.width * 0.8)
-                        .foregroundColor(.none)
                 }
                 
                 Text("\(car.brand) \(car.model)")
