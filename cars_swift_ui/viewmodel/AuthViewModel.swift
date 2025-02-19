@@ -51,10 +51,9 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func signInWithGoogle(presentingViewController: UIViewController) async -> Bool {
+    func signInWithGoogle(presentingViewController: UIViewController) async -> (Bool, String) {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
-            print("Fehlende Client-ID für Google Sign-In.")
-            return false
+            return (false, "missing client-id for Google sign-in")
         }
 
         let config = GIDConfiguration(clientID: clientID)
@@ -65,8 +64,7 @@ class AuthViewModel: ObservableObject {
 
             let user = result.user
             guard let idToken = user.idToken?.tokenString else {
-                print("Fehler: Kein gültiger ID-Token erhalten.")
-                return false
+                return (false, "Invalid id-token for Google sign-in")
             }
 
             let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: user.accessToken.tokenString)
@@ -74,13 +72,43 @@ class AuthViewModel: ObservableObject {
             let authResult = try await Auth.auth().signIn(with: credential)
             self.user = authResult.user
             self.authenticationState = .authenticated
-            print("Erfolgreich bei Firebase angemeldet: \(authResult.user.displayName ?? "Kein Name")")
-            return true
+            return (true, "")
         } catch {
-            print("Fehler bei der Google-Anmeldung: \(error.localizedDescription)")
-            return false
+            return (false, error.localizedDescription)
         }
     }
+    
+    func signInWithGithub() async -> (Bool, String) {
+        let provider = OAuthProvider(providerID: "github.com")
+        var errorToReturn: String = ""
+        
+        do {
+            let credential = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<AuthCredential, Error>) in
+                provider.getCredentialWith(nil) { credential, error in
+                    if let error = error {
+                        continuation.resume(throwing: error)
+                        errorToReturn = error.localizedDescription
+                        return
+                    }
+                    guard let credential = credential else {
+                        continuation.resume(throwing: NSError(domain: "AuthError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid credentials provided"]))
+                        errorToReturn = "Invalid credentials provided"
+                        return
+                    }
+                    continuation.resume(returning: credential)
+                }
+            }
+            
+            let authResult = try await Auth.auth().signIn(with: credential)
+            
+            if let oauthCredential = authResult.credential as? OAuthCredential {}
+                       
+            return (true, "")
+        } catch {
+            return (false, error.localizedDescription)
+        }
+    }
+
 
     
     func signInWithEmailPassword(email: String, password: String) async -> Bool {
