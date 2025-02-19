@@ -108,8 +108,6 @@ class AuthViewModel: ObservableObject {
             return (false, error.localizedDescription)
         }
     }
-
-
     
     func signInWithEmailPassword(email: String, password: String) async -> Bool {
         authenticationState = .authenticating

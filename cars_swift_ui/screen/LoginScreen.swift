@@ -74,7 +74,7 @@ struct IntroView: View {
                             
                             Text("\nAlternatively with your desired service")
                             
-                            //TODO: add sign in with apple and google
+                            //TODO: add sign in with apple
                             
                             HStack(spacing: 30) {
                                 LogInButtonView(imageName: "google_logo") {
@@ -86,11 +86,11 @@ struct IntroView: View {
                                             return
                                         }
 
-                                        let success = await authenticationViewModel.signInWithGoogle(presentingViewController: rootViewController)
+                                        let (success, error) = await authenticationViewModel.signInWithGoogle(presentingViewController: rootViewController)
                                                     
                                         if !success {
                                             showAlertErrorSignUp = true
-                                            //TODO: to add // errorMessageSignUp =
+                                            errorMessageSignUp = error
                                         }
                                     }
                                         
@@ -99,7 +99,13 @@ struct IntroView: View {
                                     print("test")
                                 }
                                 LogInButtonView(imageName:"github_logo") {
-                                    print("test")
+                                    Task {
+                                        let (success, error) = await authenticationViewModel.signInWithGithub()
+                                        if !success {
+                                            showAlertErrorSignUp = true
+                                            errorMessageSignUp = error
+                                        }
+                                    }
                                 }
                             }
                         }
