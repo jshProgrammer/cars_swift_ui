@@ -40,6 +40,7 @@ Please note that the information about the cars could be incorrected as they hav
 - Firebase Firestore - cloud-based NoSQL database for scalable and real-time synchronized data
 
 ## User Interface Preview
+<img src="DarkModeFirstPage.png" width="220" alt="screenshot: first page with cars list" > <img src="DarkModeFilter.png" width="220" alt="screenshot: filter screen with dark mode"> <img src="FavoritesDetailViewScreencast.gif" width="220" alt="Screen recording All Cars and Favorites tabscreens" > <img src="loginPageScreencast.gif" width="220" alt="Screen recording Login page" >
 
 ## Purpose
 
